@@ -1,0 +1,17 @@
+{% extends 'tracker/layout.html' %}
+{% block body %}
+<h1>Pending List</h1>
+{% if tasks %}
+<ul>
+    {% for task in tasks %}
+    <li>
+        {{task.name}} ({{task.topic.name}})
+        -{{ task.target_date}}
+        -{% if task.completed %}Done{% else %}Not Done{% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>There is no Pending Tasks</p>
+{% endif %}
+{% endblock %}
