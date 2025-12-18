@@ -1,0 +1,8 @@
+{% extends 'tracker/layout.html' %}
+{% block body %}
+<h1>{{task.title}}</h1>
+<p>{{task.description}}</p>
+<nav>
+    <a href="{% url 'task_list' %}">Back to list</a>
+</nav>
+{% endblock %}

@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
+from django.http import Http404
 from .models import StudyTask
 from .forms import StudyTaskForm
 # Create your views here.
@@ -26,4 +27,10 @@ def new_task(request):
         form = StudyTaskForm()
     return render(request,"tracker/task_form.html",{
         "form" : form
+    })
+
+def task_detail (request,pk):
+    task = get_object_or_404(StudyTask, id=pk)
+    return render(request,"tracker/task_detail.html",{
+        "task" : task
     })
