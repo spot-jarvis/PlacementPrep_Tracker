@@ -4,5 +4,6 @@
 <p>{{task.description}}</p>
 <nav>
     <a href="{% url 'task_list' %}">Back to list</a>
+    <a href="{% url 'task_edit' task.id %}">Edit task</a>
 </nav>
 {% endblock %}

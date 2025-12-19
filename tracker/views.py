@@ -34,3 +34,16 @@ def task_detail (request,pk):
     return render(request,"tracker/task_detail.html",{
         "task" : task
     })
+
+def task_edit(request,pk):
+    task = get_object_or_404(StudyTask,id = pk)
+    if request.method == "POST":
+        form = StudyTaskForm(request.POST,instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect("task_detail",pk = task.pk)
+    else:
+        form = StudyTaskForm(instance=task)
+    return render(request,"tracker/task_form.html",{
+        "form" : form
+    })
