@@ -47,3 +47,13 @@ def task_edit(request,pk):
     return render(request,"tracker/task_form.html",{
         "form" : form
     })
+
+def task_delete(request,pk):
+    task = get_object_or_404(StudyTask,id=pk)
+    if request.method == "POST":
+        task.delete()
+        return redirect("task_list")
+    return render(request,"tracker/task_confirm_delete.html",{
+        "task" :task
+    })
+

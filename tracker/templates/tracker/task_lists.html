@@ -8,13 +8,16 @@
     {% for task in tasks %}
     <li>
         <a href="{% url 'task_detail' task.id %}">{{task.title}}</a>
-         ({{task.topic.name}})
+        ({{task.topic.name}})
         -{{task.target_date}}
         -{% if task.completed %}Done{% else %}Not Done{% endif %}
     </li>
     {% endfor %}
 </ul>
 {% else %}
-    <p>No tasks yet.</p>
+<p>No tasks yet.</p>
 {% endif %}
+<nav>
+    <a href="{% url 'new_task' %}">Add more . </a>
+</nav>
 {% endblock %}  

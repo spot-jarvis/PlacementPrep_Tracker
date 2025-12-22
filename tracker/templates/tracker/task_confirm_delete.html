@@ -1,0 +1,16 @@
+{% extends "tracker/layout.html" %}
+
+{% block body %}
+<h1>On Delete</h1>
+{% if task %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Delete ""{{task.title}}""  ?</p>
+        <button type="submit">Yes! Delete</button>
+        <a href="{% url 'task_list' %}">Cancel</a>
+    </form>
+{% else %}
+    <p>Check your entry</p>
+{% endif %}
+
+{% endblock %}
