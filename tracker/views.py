@@ -1,5 +1,8 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from .models import StudyTask
 from .forms import StudyTaskForm
 # Create your views here.
@@ -57,3 +60,35 @@ def task_delete(request,pk):
         "task" :task
     })
 
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request,username = username,password = password)
+        if user is not None:
+            login(request,user)
+            return redirect('task_list')
+        else:
+            messages.error(request, "Invalid username or password")
+            return render(request,'tracker/login.html',{
+                'username' : username
+            })
+
+    return render(request,'tracker/login.html')
+
+def log_out(request):
+    logout(request)
+    return redirect("login_view")
+
+def sign_up(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login_view")
+    else:
+        form = UserCreationForm()
+    
+    return render(request, "tracker/signup.html",{
+        "form" : form
+    })

@@ -1,0 +1,21 @@
+{% extends 'tracker/layout.html' %}
+
+{% block body %}
+<nav>
+  <a href="{% url 'signup' %}">SignUp</a>
+</nav>
+<h2>Login</h2>
+{% if messages %}
+  {% for message in messages %}
+    <p class="{{ message.tags }}">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <label for="username">Username</label>
+    <input type="text" name="username" value="{{ username|default:''}}">
+    <label for="password">password</label>
+    <input type="password" name="password">
+    <button type="submit">login</button>
+</form>
+{% endblock %}

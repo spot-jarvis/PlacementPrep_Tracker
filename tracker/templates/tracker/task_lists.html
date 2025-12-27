@@ -2,6 +2,9 @@
 {% block title %}My Study Tasks {% endblock %}
 
 {% block body %}
+<nav>
+    <a href="{% url 'log_out' %}">LogOut</a>
+</nav>
 <h1>Study Task</h1>
 {% if tasks %}
 <ul>
@@ -11,6 +14,7 @@
         ({{task.topic.name}})
         -{{task.target_date}}
         -{% if task.completed %}Done{% else %}Not Done{% endif %}
+        <a href="{% url 'task_delete' task.id %}">Delete</a>
     </li>
     {% endfor %}
 </ul>
