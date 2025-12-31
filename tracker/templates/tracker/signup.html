@@ -1,9 +1,7 @@
 {% extends 'tracker/layout.html' %}
 {% block body %}
 <h2>SignUp</h2>
-<nav>
-    <a href="{% url 'login_view' %}">Login</a>
-</nav>
+
 {% if form.errors %}
   <ul style="color:red">
     {% for field in form %}

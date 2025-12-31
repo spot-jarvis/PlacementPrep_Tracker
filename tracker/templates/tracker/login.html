@@ -1,9 +1,7 @@
 {% extends 'tracker/layout.html' %}
 
 {% block body %}
-<nav>
-  <a href="{% url 'signup' %}">SignUp</a>
-</nav>
+
 <h2>Login</h2>
 {% if messages %}
   {% for message in messages %}

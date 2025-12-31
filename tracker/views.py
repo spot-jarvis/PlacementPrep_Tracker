@@ -1,37 +1,41 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import StudyTask
 from .forms import StudyTaskForm
 # Create your views here.
+@login_required
 def task_list(request):
-    tasks = StudyTask.objects.all().order_by("completed","target_date")
-
+    tasks = StudyTask.objects.filter(user=request.user).order_by("completed", "target_date")
     return render(request,"tracker/task_lists.html",{
         "tasks" : tasks
     })
-
+@login_required
 def pending_list(request):
-    tasks = StudyTask.objects.filter(completed = False).order_by("target_date")
+    tasks = StudyTask.objects.filter(user = request.user,completed = False).order_by("target_date")
     return render(request,"tracker/pending_list.html",{
         "tasks" : tasks
     })
 
+@login_required
 def new_task(request):
     if request.method == "POST":
         form = StudyTaskForm(request.POST)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
             return redirect("task_list")
-        
     else:
         form = StudyTaskForm()
-    return render(request,"tracker/task_form.html",{
-        "form" : form
+    return render(request, "tracker/task_form.html", {
+        "form": form
     })
 
+@login_required
 def task_detail (request,pk):
     task = get_object_or_404(StudyTask, id=pk)
     return render(request,"tracker/task_detail.html",{
@@ -39,7 +43,7 @@ def task_detail (request,pk):
     })
 
 def task_edit(request,pk):
-    task = get_object_or_404(StudyTask,id = pk)
+    task = get_object_or_404(StudyTask,id = pk, user = request.user)
     if request.method == "POST":
         form = StudyTaskForm(request.POST,instance=task)
         if form.is_valid():

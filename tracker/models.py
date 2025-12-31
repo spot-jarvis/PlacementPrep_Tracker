@@ -1,6 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.conf import settings
 # Create your models here.
+
 class Company(models.Model):
     name = models.CharField( max_length=50)
     website = models.URLField( max_length=200,blank=True)
@@ -28,8 +30,9 @@ class Topic(models.Model):
 
     def __str__(self):
         return f"{self.name}({self.category})"
-
+User = get_user_model()
 class StudyTask(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     title = models.CharField( max_length=50)
     description = models.TextField(blank=True)
