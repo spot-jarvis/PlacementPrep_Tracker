@@ -1,0 +1,68 @@
+{% extends 'tracker/layout.html' %}
+
+{% block body %}
+<div class="container py-5">
+  <div class="row align-items-center">
+    <!-- Left: Text -->
+    <div class="col-md-7">
+      <h1 class="display-5 fw-bold mb-3">
+        Stay ahead with your <span class="text-primary">Placement Tracker</span>
+      </h1>
+      <p class="lead text-muted mb-4">
+        Organize your tasks, track applications, and never miss a deadline again.
+        Everything about your placements in one neat dashboard.
+      </p>
+
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <a href="{% url 'task_list' %}" class="btn btn-primary btn-lg">
+          View Tasks
+        </a>
+        <a href="{% url 'new_task' %}" class="btn btn-outline-primary btn-lg">
+          Add New Task
+        </a>
+      </div>
+
+      <ul class="list-unstyled text-muted small mb-0">
+        <li>✔ See all your upcoming placement tasks at a glance</li>
+        <li>✔ Track progress company‑wise and role‑wise</li>
+        <li>✔ Keep notes for interviews, tests, and deadlines</li>
+      </ul>
+    </div>
+
+    <!-- Right: Card summary -->
+    <div class="col-md-5 mt-4 mt-md-0">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Today’s Snapshot</h5>
+          <p class="text-muted small mb-3">
+            Quick overview of how your placement prep is going.
+          </p>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Pending tasks</span>
+            <span class="fw-semibold text-primary">
+              {{ pending_tasks_count|default:"0" }}
+            </span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Completed tasks</span>
+            <span class="fw-semibold text-success">
+              {{ completed_tasks_count|default:"0" }}
+            </span>
+          </div>
+          <div class="d-flex justify-content-between mb-4">
+            <span>Upcoming deadlines (7 days)</span>
+            <span class="fw-semibold text-danger">
+              {{ upcoming_deadlines_count|default:"0" }}
+            </span>
+          </div>
+
+          <a href="{% url 'task_list' %}" class="btn btn-primary w-100">
+            Go to Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
