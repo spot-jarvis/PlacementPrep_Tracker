@@ -19,7 +19,7 @@ class TopicSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class StudyTaskSerializer(serializers.ModelSerializer):
-    topic_name = serializers.CharField(source='topic.name', read_only=True)
+    topic_name = serializers.SerializerMethodField()
     
     class Meta:
         model = StudyTask
@@ -27,3 +27,6 @@ class StudyTaskSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'user': {'read_only': True}
         }
+
+    def get_topic_name(self, obj):
+        return obj.topic.name if obj.topic else "Uncategorized"

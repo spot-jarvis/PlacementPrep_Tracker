@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Briefcase, BookOpen, CheckSquare, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Briefcase, BookOpen, CheckSquare, LogOut, Menu, X, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -26,6 +26,7 @@ export default function Layout({ children, user, onLogout }) {
     { to: '/tasks', icon: CheckSquare, label: 'Study Tasks' },
     { to: '/companies', icon: Briefcase, label: 'Companies' },
     { to: '/topics', icon: BookOpen, label: 'Topics' },
+    { to: '/profile', icon: User, label: 'Profile' },
   ];
 
   return (
@@ -87,14 +88,14 @@ export default function Layout({ children, user, onLogout }) {
               {links.find(l => l.to === location.pathname)?.label || 'PrepTracker'}
             </h2>
           </div>
-          <div className="flex items-center gap-4">
+          <Link to="/profile" className="flex items-center gap-4 hover:bg-slate-50 p-1 rounded-full transition-colors">
             <span className="text-sm font-medium text-slate-600 hidden sm:block">
               {user}
             </span>
             <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold">
               {user?.charAt(0).toUpperCase()}
             </div>
-          </div>
+          </Link>
         </header>
 
         <div className="p-8 max-w-7xl mx-auto">
