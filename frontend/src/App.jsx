@@ -6,6 +6,7 @@ import Tasks from './pages/Tasks';
 import Companies from './pages/Companies';
 import Topics from './pages/Topics';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import api from './api';
 
 function App() {
@@ -55,6 +56,10 @@ function App() {
         <Route 
           path="/login" 
           element={!user ? <Login onLogin={handleLogin} /> : <Navigate to="/" />} 
+        />
+        <Route 
+          path="/signup" 
+          element={!user ? <Signup /> : <Navigate to="/" />} 
         />
         
         <Route

@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { LogIn, User, Lock, AlertCircle } from 'lucide-react';
+import { UserPlus, User, Lock, AlertCircle } from 'lucide-react';
 import api from '../api';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function Login({ onLogin }) {
+export default function Signup() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    
     setLoading(true);
     setError('');
     
@@ -20,13 +26,12 @@ export default function Login({ onLogin }) {
       // Ensure CSRF cookie is set
       await api.get('csrf/'); 
       
-      const res = await api.post('accounts/login/', { username, password });
+      const res = await api.post('accounts/signup/', { username, password });
       if (res.data.status === 'success') {
-        onLogin(res.data.username);
-        navigate('/');
+        navigate('/login');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid username or password');
+      setError(err.response?.data?.message || 'Failed to create account');
     } finally {
       setLoading(false);
     }
@@ -41,7 +46,7 @@ export default function Login({ onLogin }) {
       >
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-primary-600">PrepTracker</h1>
-          <p className="text-slate-500 mt-2">Sign in to track your placement journey</p>
+          <p className="text-slate-500 mt-2">Create your account to start tracking</p>
         </div>
 
         <div className="glass-card p-8">
@@ -60,7 +65,7 @@ export default function Login({ onLogin }) {
               <input
                 required
                 className="input-field"
-                placeholder="Enter your username"
+                placeholder="Choose a username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -80,15 +85,29 @@ export default function Login({ onLogin }) {
               />
             </div>
 
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700 flex items-center gap-2">
+                <Lock size={16} /> Confirm Password
+              </label>
+              <input
+                required
+                type="password"
+                className="input-field"
+                placeholder="••••••••"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+
             <button
               type="submit"
               disabled={loading}
               className="w-full btn-primary justify-center text-lg py-3"
             >
-              {loading ? 'Signing in...' : (
+              {loading ? 'Creating account...' : (
                 <>
-                  <LogIn size={20} />
-                  Sign In
+                  <UserPlus size={20} />
+                  Sign Up
                 </>
               )}
             </button>
@@ -96,7 +115,7 @@ export default function Login({ onLogin }) {
 
           <div className="mt-6 pt-6 border-t border-slate-100 text-center">
             <p className="text-slate-500 text-sm">
-              Don't have an account? <Link to="/signup" className="text-primary-600 font-bold hover:underline">Sign up</Link>
+              Already have an account? <Link to="/login" className="text-primary-600 font-bold hover:underline">Sign in</Link>
             </p>
           </div>
         </div>

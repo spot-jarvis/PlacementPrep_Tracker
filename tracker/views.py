@@ -124,12 +124,29 @@ def log_out(request):
 def get_csrf_token(request):
     return JsonResponse({"status": "token set"})
 
+@ensure_csrf_cookie
 def sign_up(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+            password = data.get("password")
+            
+            from django.contrib.auth.models import User
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({"status": "error", "message": "Username already exists"}, status=400)
+            
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            
+            if request.headers.get('Content-Type') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({"status": "success", "message": "User created successfully"})
             return redirect("login_view")
+        except (json.JSONDecodeError, AttributeError, ValueError):
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("login_view")
     else:
         form = UserCreationForm()
     
