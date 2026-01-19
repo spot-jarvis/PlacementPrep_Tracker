@@ -27,15 +27,18 @@ export default function Dashboard() {
     completed: 0,
     upcoming: 0,
     companies: 0,
-    topicData: []
+    roles: 0,
+    topicData: [],
+    packageData: []
   });
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [tasks, companies] = await Promise.all([
+        const [tasks, companies, roles] = await Promise.all([
           api.get('tasks/'),
-          api.get('companies/')
+          api.get('companies/'),
+          api.get('roles/')
         ]);
         
         if (!tasks.data || !Array.isArray(tasks.data)) return;
@@ -61,12 +64,24 @@ export default function Dashboard() {
           value: topicCounts[name]
         }));
 
+        const packageCounts = {};
+        roles.data.forEach(role => {
+          const pkg = role.package || 'TBD';
+          packageCounts[pkg] = (packageCounts[pkg] || 0) + 1;
+        });
+        const packageData = Object.keys(packageCounts).map(name => ({
+          name,
+          value: packageCounts[name]
+        }));
+
         setStats({
           pending,
           completed,
           upcoming,
           companies: companies.data?.length || 0,
-          topicData
+          roles: roles.data?.length || 0,
+          topicData,
+          packageData
         });
       } catch (err) {
         console.error("Failed to fetch dashboard stats", err);
@@ -87,8 +102,8 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard icon={Clock} label="Pending Tasks" value={stats.pending} color="bg-orange-600" />
         <StatCard icon={CheckCircle2} label="Completed" value={stats.completed} color="bg-emerald-600" />
-        <StatCard icon={Clock} label="Upcoming Deadlines" value={stats.upcoming} color="bg-primary-600" />
-        <StatCard icon={Building2} label="Companies Tracked" value={stats.companies} color="bg-purple-600" />
+        <StatCard icon={CheckSquare} label="Total Roles" value={stats.roles} color="bg-purple-600" />
+        <StatCard icon={Building2} label="Companies" value={stats.companies} color="bg-primary-600" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -126,24 +141,24 @@ export default function Dashboard() {
         </div>
 
         <div className="glass-card p-6 min-h-[400px]">
-          <h3 className="text-lg font-bold text-slate-800 mb-6 text-center lg:text-left">Tasks by Topic</h3>
-          {stats.topicData.length > 0 ? (
+          <h3 className="text-lg font-bold text-slate-800 mb-6 text-center lg:text-left">Roles by Package</h3>
+          {stats.packageData.length > 0 ? (
             <div className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={stats.topicData.slice(0, 5)}>
+                <BarChart data={stats.packageData}>
                   <XAxis dataKey="name" axisLine={false} tickLine={false} />
                   <YAxis hide />
                   <Tooltip 
                     cursor={{ fill: '#f1f5f9' }}
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                   />
-                  <Bar dataKey="value" fill="#0284c7" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="value" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           ) : (
             <div className="h-[300px] flex items-center justify-center text-slate-400 italic">
-              Group your tasks by topics to see progress
+              Add roles with package info to see trends
             </div>
           )}
         </div>
