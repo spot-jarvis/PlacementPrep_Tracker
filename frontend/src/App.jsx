@@ -14,7 +14,16 @@ import { ThemeProvider } from './context/ThemeContext';
 function AppContent() {
   const { user, loading, login, logout } = useAuth();
 
-  if (loading && user) return <div className="min-h-screen flex items-center justify-center italic text-slate-400">Loading...</div>;
+  if (loading && user) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center transition-colors duration-300">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+          <p className="italic text-slate-400 font-medium">Loading your profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Routes>

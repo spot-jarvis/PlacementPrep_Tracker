@@ -3,6 +3,7 @@ import { CheckCircle2, Clock, Building2, ArrowRight, CheckSquare } from 'lucide-
 import { motion } from 'framer-motion';
 import api from '../api';
 import { Link } from 'react-router-dom';
+import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 const StatCard = ({ icon: Icon, label, value, color }) => (
   <motion.div 
@@ -18,8 +19,6 @@ const StatCard = ({ icon: Icon, label, value, color }) => (
     </div>
   </motion.div>
 );
-
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 export default function Dashboard() {
   const [stats, setStats] = useState({

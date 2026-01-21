@@ -1,3 +1,4 @@
+import React from 'react';
 import { LayoutDashboard, Briefcase, BookOpen, CheckSquare, LogOut, Menu, X, User, Lightbulb } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
