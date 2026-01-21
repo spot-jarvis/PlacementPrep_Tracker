@@ -1,7 +1,7 @@
-import React from 'react';
-import { LayoutDashboard, Briefcase, BookOpen, CheckSquare, LogOut, Menu, X, User } from 'lucide-react';
+import { LayoutDashboard, Briefcase, BookOpen, CheckSquare, LogOut, Menu, X, User, Lightbulb } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 const SidebarLink = ({ to, icon: Icon, label, active }) => (
   <Link
@@ -9,7 +9,7 @@ const SidebarLink = ({ to, icon: Icon, label, active }) => (
     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
       active 
         ? 'bg-primary-600 text-white shadow-lg shadow-primary-500/30' 
-        : 'text-slate-600 hover:bg-slate-100'
+        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
     }`}
   >
     <Icon size={20} />
@@ -19,6 +19,7 @@ const SidebarLink = ({ to, icon: Icon, label, active }) => (
 
 export default function Layout({ children, user, onLogout }) {
   const [isOpen, setIsOpen] = React.useState(true);
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
   const links = [
@@ -30,12 +31,12 @@ export default function Layout({ children, user, onLogout }) {
   ];
 
   return (
-    <div className="min-h-screen flex bg-slate-50">
+    <div className="min-h-screen flex bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       {/* Sidebar */}
       <motion.aside
         initial={false}
         animate={{ width: isOpen ? 280 : 80 }}
-        className="fixed left-0 top-0 h-full bg-white border-r border-slate-200 z-50 flex flex-col"
+        className="fixed left-0 top-0 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 flex flex-col"
       >
         <div className="p-6 flex items-center justify-between">
           {isOpen && (
@@ -49,7 +50,7 @@ export default function Layout({ children, user, onLogout }) {
           )}
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 hover:bg-slate-100 rounded-lg text-slate-500"
+            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-500 dark:text-slate-400"
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -66,10 +67,10 @@ export default function Layout({ children, user, onLogout }) {
           ))}
         </nav>
 
-        <div className="p-4 border-t border-slate-100">
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800">
           <button 
             onClick={onLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all"
+            className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 rounded-xl transition-all"
           >
             <LogOut size={20} />
             {isOpen && <span className="font-medium">Logout</span>}
@@ -82,20 +83,35 @@ export default function Layout({ children, user, onLogout }) {
         className="flex-1 transition-all duration-300"
         style={{ marginLeft: isOpen ? 280 : 80 }}
       >
-        <header className="h-16 border-b border-slate-200 bg-white/50 backdrop-blur-md sticky top-0 z-40 flex items-center px-8">
+        <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md sticky top-0 z-40 flex items-center px-8">
           <div className="flex-1">
-            <h2 className="text-lg font-semibold text-slate-800 uppercase tracking-wider text-sm">
+            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 uppercase tracking-wider text-sm">
               {links.find(l => l.to === location.pathname)?.label || 'PrepTracker'}
             </h2>
           </div>
-          <Link to="/profile" className="flex items-center gap-4 hover:bg-slate-50 p-1 rounded-full transition-colors">
-            <span className="text-sm font-medium text-slate-600 hidden sm:block">
-              {user}
-            </span>
-            <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold">
-              {user?.charAt(0).toUpperCase()}
-            </div>
-          </Link>
+          
+          <div className="flex items-center gap-6">
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-xl transition-all duration-300 ${
+                theme === 'light' 
+                  ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 shadow-lg shadow-yellow-200 dark:shadow-none' 
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-primary-600'
+              }`}
+              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              <Lightbulb size={20} fill={theme === 'light' ? 'currentColor' : 'none'} />
+            </button>
+
+            <Link to="/profile" className="flex items-center gap-4 hover:bg-slate-50 dark:hover:bg-slate-800 p-1 rounded-full transition-colors">
+              <span className="text-sm font-medium text-slate-600 dark:text-slate-400 hidden sm:block">
+                {user}
+              </span>
+              <div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 flex items-center justify-center font-bold">
+                {user?.charAt(0).toUpperCase()}
+              </div>
+            </Link>
+          </div>
         </header>
 
         <div className="p-8 max-w-7xl mx-auto">

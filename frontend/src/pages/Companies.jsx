@@ -79,8 +79,8 @@ export default function Companies() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Companies & Roles</h2>
-          <p className="text-slate-500">Manage your applications and target companies.</p>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Companies & Roles</h2>
+          <p className="text-slate-500 dark:text-slate-400">Manage your applications and target companies.</p>
         </div>
         <div className="flex gap-3">
           <button onClick={() => setShowRoleModal(true)} className="btn-primary bg-purple-600 hover:bg-purple-700">
@@ -96,7 +96,7 @@ export default function Companies() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
-          <h3 className="text-lg font-bold text-slate-800">Target Companies</h3>
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">Target Companies</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <AnimatePresence>
               {companies.map(company => (
@@ -122,8 +122,8 @@ export default function Companies() {
                       {company.company_type}
                     </span>
                   </div>
-                  <h4 className="text-xl font-bold text-slate-800 mb-2">{company.name}</h4>
-                  <div className="space-y-2 text-sm text-slate-500">
+                  <h4 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">{company.name}</h4>
+                  <div className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
                     <div className="flex items-center gap-2">
                       <MapPin size={14} /> {company.location}
                     </div>
@@ -141,7 +141,7 @@ export default function Companies() {
         </div>
 
         <div className="space-y-6">
-          <h3 className="text-lg font-bold text-slate-800">Open Roles</h3>
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">Open Roles</h3>
           <div className="space-y-4">
             <AnimatePresence>
               {roles.map(role => (
@@ -159,17 +159,17 @@ export default function Companies() {
                     <Trash2 size={14} />
                   </button>
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-bold text-slate-800">{role.title}</h4>
-                    <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
+                    <h4 className="font-bold text-slate-800 dark:text-slate-100">{role.title}</h4>
+                    <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
                       {role.status}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-500 mb-3">{role.company_name}</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">{role.company_name}</p>
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1 text-xs font-medium text-slate-600 mb-0.5">
+                    <span className="flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-slate-400 mb-0.5">
                       <CreditCard size={12} /> {role.package}
                     </span>
-                    <ChevronRight size={16} className="text-slate-300" />
+                    <ChevronRight size={16} className="text-slate-300 dark:text-slate-600" />
                   </div>
                 </motion.div>
               ))}
@@ -182,30 +182,30 @@ export default function Companies() {
       {showCompanyModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowCompanyModal(false)} />
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-2xl p-8 w-full max-w-md relative shadow-2xl">
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white dark:bg-slate-900 rounded-2xl p-8 w-full max-w-md relative shadow-2xl">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold">Add New Company</h3>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Add New Company</h3>
               <button onClick={() => setShowCompanyModal(false)} className="text-slate-400 hover:text-slate-600"><X size={24} /></button>
             </div>
             <form onSubmit={handleCompanySubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Company Name</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Company Name</label>
                 <input required className="input-field" value={newCompany.name} onChange={e => setNewCompany({...newCompany, name: e.target.value})} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Website</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Website</label>
                 <input type="url" className="input-field" value={newCompany.website} onChange={e => setNewCompany({...newCompany, website: e.target.value})} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Location</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Location</label>
                 <input required className="input-field" value={newCompany.location} onChange={e => setNewCompany({...newCompany, location: e.target.value})} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Company Type</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Company Type</label>
                 <input required className="input-field" placeholder="e.g. Product, Service, Startup" value={newCompany.company_type} onChange={e => setNewCompany({...newCompany, company_type: e.target.value})} />
               </div>
               <div className="flex gap-3 mt-8">
-                <button type="button" onClick={() => setShowCompanyModal(false)} className="flex-1 px-4 py-2 border border-slate-200 rounded-lg">Cancel</button>
+                <button type="button" onClick={() => setShowCompanyModal(false)} className="flex-1 px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 dark:text-slate-400">Cancel</button>
                 <button type="submit" className="flex-1 btn-primary justify-center">Add Company</button>
               </div>
             </form>
@@ -217,29 +217,29 @@ export default function Companies() {
       {showRoleModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowRoleModal(false)} />
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-2xl p-8 w-full max-w-md relative shadow-2xl">
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white dark:bg-slate-900 rounded-2xl p-8 w-full max-w-md relative shadow-2xl">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold">Add New Role</h3>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Add New Role</h3>
               <button onClick={() => setShowRoleModal(false)} className="text-slate-400 hover:text-slate-600"><X size={24} /></button>
             </div>
             <form onSubmit={handleRoleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Company</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Company</label>
                 <select required className="input-field" value={newRole.company} onChange={e => setNewRole({...newRole, company: e.target.value})}>
                   <option value="">Select Company</option>
                   {companies.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Role Title</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Role Title</label>
                 <input required className="input-field" value={newRole.title} onChange={e => setNewRole({...newRole, title: e.target.value})} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Package (LPA)</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Package (LPA)</label>
                 <input required className="input-field" placeholder="e.g. 12 LPA" value={newRole.package} onChange={e => setNewRole({...newRole, package: e.target.value})} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Status</label>
                 <select className="input-field" value={newRole.status} onChange={e => setNewRole({...newRole, status: e.target.value})}>
                   <option value="Open">Open</option>
                   <option value="Applied">Applied</option>
@@ -249,7 +249,7 @@ export default function Companies() {
                 </select>
               </div>
               <div className="flex gap-3 mt-8">
-                <button type="button" onClick={() => setShowRoleModal(false)} className="flex-1 px-4 py-2 border border-slate-200 rounded-lg">Cancel</button>
+                <button type="button" onClick={() => setShowRoleModal(false)} className="flex-1 px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-600 dark:text-slate-400">Cancel</button>
                 <button type="submit" className="flex-1 btn-primary bg-purple-600 hover:bg-purple-700 justify-center">Add Role</button>
               </div>
             </form>

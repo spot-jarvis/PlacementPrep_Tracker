@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary-50: #f0f9ff;
   --color-primary-100: #e0f2fe;
@@ -20,23 +22,19 @@
 }
 
 body {
-  background-color: var(--color-slate-50);
-  color: var(--color-slate-900);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans antialiased;
 }
 
 .glass-card {
-  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl transition-all duration-300;
+  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/20 dark:border-slate-800/50 shadow-xl rounded-2xl transition-all duration-300;
 }
 
 .glass-card:hover {
-  @apply shadow-2xl bg-white/90 border-white/40;
+  @apply shadow-2xl bg-white/90 dark:bg-slate-900 border-white/40 dark:border-slate-700/50;
 }
 
 .glass-sidebar {
-  @apply bg-white/70 backdrop-blur-lg border-r border-slate-200/50 shadow-lg;
+  @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-lg border-r border-slate-200/50 dark:border-slate-800/50 shadow-lg;
 }
 
 .btn-primary {
@@ -44,7 +42,7 @@ body {
 }
 
 .input-field {
-  @apply w-full bg-white/50 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all outline-none text-slate-700;
+  @apply w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all outline-none text-slate-700 dark:text-slate-200;
 }
 
 .badge {

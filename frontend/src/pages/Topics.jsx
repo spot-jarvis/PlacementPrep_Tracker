@@ -59,8 +59,8 @@ export default function Topics() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Study Topics</h2>
-          <p className="text-slate-500">Curated topics and preparation material.</p>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Study Topics</h2>
+          <p className="text-slate-500 dark:text-slate-400">Curated topics and preparation material.</p>
         </div>
         <button 
           onClick={() => setShowModal(true)}
@@ -96,8 +96,8 @@ export default function Topics() {
                   {topic.difficulty}
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-4">{topic.name}</h3>
-              <div className="flex items-center gap-4 text-sm text-slate-500">
+              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">{topic.name}</h3>
+              <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
                 <span className="flex items-center gap-1">
                   <Layers size={14} /> {topic.category}
                 </span>
@@ -113,17 +113,17 @@ export default function Topics() {
           <motion.div 
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-2xl p-8 w-full max-w-md relative shadow-2xl"
+            className="bg-white dark:bg-slate-900 rounded-2xl p-8 w-full max-w-md relative shadow-2xl"
           >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold">Create New Topic</h3>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Create New Topic</h3>
               <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600">
                 <X size={24} />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Topic Name</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Topic Name</label>
                 <input 
                   required
                   placeholder="e.g. Dynamic Programming"
@@ -133,7 +133,7 @@ export default function Topics() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Category</label>
                 <input 
                   required
                   placeholder="e.g. Algorithms"
@@ -143,7 +143,7 @@ export default function Topics() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Difficulty</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Difficulty</label>
                 <select 
                   className="input-field"
                   value={newTopic.difficulty}
@@ -158,7 +158,7 @@ export default function Topics() {
                 <button 
                   type="button" 
                   onClick={() => setShowModal(false)}
-                  className="flex-1 px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all"
+                  className="flex-1 px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-600 dark:text-slate-400"
                 >
                   Cancel
                 </button>

@@ -13,8 +13,8 @@ const StatCard = ({ icon: Icon, label, value, color }) => (
       <Icon size={24} className={color.replace('bg-', 'text-')} />
     </div>
     <div>
-      <p className="text-sm text-slate-500 font-medium">{label}</p>
-      <h3 className="text-2xl font-bold text-slate-800">{value}</h3>
+      <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{label}</p>
+      <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{value}</h3>
     </div>
   </motion.div>
 );
@@ -108,7 +108,7 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="glass-card p-6 min-h-[400px]">
-          <h3 className="text-lg font-bold text-slate-800 mb-6 font-display text-center lg:text-left">Task Distribution</h3>
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-6 font-display text-center lg:text-left">Task Distribution</h3>
           {hasChartData ? (
             <div className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -141,7 +141,7 @@ export default function Dashboard() {
         </div>
 
         <div className="glass-card p-6 min-h-[400px]">
-          <h3 className="text-lg font-bold text-slate-800 mb-6 text-center lg:text-left">Roles by Package</h3>
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-6 text-center lg:text-left">Roles by Package</h3>
           {stats.packageData.length > 0 ? (
             <div className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -167,24 +167,24 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="glass-card p-6">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-bold text-slate-800">Quick Actions</h3>
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">Quick Actions</h3>
           </div>
           <div className="space-y-3">
-            <Link to="/tasks" className="flex items-center justify-between p-4 bg-slate-50/50 rounded-2xl hover:bg-primary-50 hover:text-primary-600 transition-all group border border-slate-100 hover:border-primary-100">
+            <Link to="/tasks" className="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-slate-800/50 rounded-2xl hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 transition-all group border border-slate-100 dark:border-slate-700 hover:border-primary-100">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary-100 text-primary-600 rounded-lg">
+                <div className="p-2 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300 rounded-lg">
                   <CheckSquare size={20} />
                 </div>
-                <span className="font-semibold text-slate-700">Manage Study Tasks</span>
+                <span className="font-semibold text-slate-700 dark:text-slate-200">Manage Study Tasks</span>
               </div>
               <ArrowRight size={18} className="opacity-0 group-hover:opacity-100 transition-all" />
             </Link>
-            <Link to="/companies" className="flex items-center justify-between p-4 bg-slate-50/50 rounded-2xl hover:bg-primary-50 hover:text-primary-600 transition-all group border border-slate-100 hover:border-primary-100">
+            <Link to="/companies" className="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-slate-800/50 rounded-2xl hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 transition-all group border border-slate-100 dark:border-slate-700 hover:border-primary-100">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-100 text-purple-600 rounded-lg">
+                <div className="p-2 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-lg">
                   <Building2 size={20} />
                 </div>
-                <span className="font-semibold text-slate-700">View Target Companies</span>
+                <span className="font-semibold text-slate-700 dark:text-slate-200">View Target Companies</span>
               </div>
               <ArrowRight size={18} className="opacity-0 group-hover:opacity-100 transition-all" />
             </Link>
@@ -192,14 +192,14 @@ export default function Dashboard() {
         </div>
 
         <div className="glass-card p-6 flex flex-col justify-center">
-          <h3 className="text-lg font-bold text-slate-800 mb-6">Overall Progress</h3>
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-6">Overall Progress</h3>
           <div className="space-y-6">
             <div>
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-slate-500 font-medium">Completion Rate</span>
-                <span className="font-bold text-slate-700">{Math.round((stats.completed / (stats.pending + stats.completed || 1)) * 100)}%</span>
+                <span className="text-slate-500 dark:text-slate-400 font-medium">Completion Rate</span>
+                <span className="font-bold text-slate-700 dark:text-slate-200">{Math.round((stats.completed / (stats.pending + stats.completed || 1)) * 100)}%</span>
               </div>
-              <div className="h-4 bg-slate-100 rounded-full overflow-hidden p-1">
+              <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-1">
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={{ width: `${(stats.completed / (stats.pending + stats.completed || 1)) * 100}%` }}

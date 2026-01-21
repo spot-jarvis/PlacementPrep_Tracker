@@ -70,8 +70,8 @@ export default function Tasks() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Study Tasks</h2>
-          <p className="text-slate-500">Track your learning goals and progress.</p>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Study Tasks</h2>
+          <p className="text-slate-500 dark:text-slate-400">Track your learning goals and progress.</p>
         </div>
         <button 
           onClick={() => setShowModal(true)}
@@ -108,10 +108,10 @@ export default function Tasks() {
                   {task.completed ? <CheckCircle size={24} /> : <Circle size={24} />}
                 </button>
                 <div className="flex-1">
-                  <h3 className={`font-semibold ${task.completed ? 'line-through text-slate-400' : 'text-slate-800'}`}>
+                  <h3 className={`font-semibold ${task.completed ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-800 dark:text-slate-200'}`}>
                     {task.title}
                   </h3>
-                  <div className="flex items-center gap-4 mt-1 text-sm text-slate-500">
+                  <div className="flex items-center gap-4 mt-1 text-sm text-slate-500 dark:text-slate-400">
                     {task.target_date && (
                       <span className="flex items-center gap-1">
                         <Calendar size={14} />
@@ -119,7 +119,7 @@ export default function Tasks() {
                       </span>
                     )}
                     {task.topic_name && (
-                      <span className="bg-slate-100 px-2 py-0.5 rounded-full text-xs">
+                      <span className="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full text-xs">
                         {task.topic_name}
                       </span>
                     )}
@@ -144,12 +144,12 @@ export default function Tasks() {
           <motion.div 
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-2xl p-8 w-full max-w-md relative shadow-2xl"
+            className="bg-white dark:bg-slate-900 rounded-2xl p-8 w-full max-w-md relative shadow-2xl"
           >
-            <h3 className="text-xl font-bold mb-6">Create New Task</h3>
+            <h3 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-100">Create New Task</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Title</label>
                 <input 
                   required
                   className="input-field"
@@ -158,7 +158,7 @@ export default function Tasks() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Target Date</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Target Date</label>
                 <input 
                   type="date"
                   className="input-field"
@@ -167,7 +167,7 @@ export default function Tasks() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Topic</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Topic</label>
                 <select 
                   className="input-field"
                   value={newTask.topic}
@@ -183,7 +183,7 @@ export default function Tasks() {
                 <button 
                   type="button" 
                   onClick={() => setShowModal(false)}
-                  className="flex-1 px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all"
+                  className="flex-1 px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-600 dark:text-slate-400"
                 >
                   Cancel
                 </button>
